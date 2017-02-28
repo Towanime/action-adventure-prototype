@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (playerInput.action)
         {
-            GetComponent<Disk>().Throw();
+            GetComponent<Disk>().BeginThrow();
         }
        // Debug.Log("Is grounded: " + this.characterController.isGrounded);
     }

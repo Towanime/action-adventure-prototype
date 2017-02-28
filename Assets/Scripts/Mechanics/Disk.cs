@@ -24,6 +24,7 @@ public class Disk : MonoBehaviour
     public float speed;
     [Tooltip("How fast the disk will return.")]
     public float returnSpeed;
+    public Animator animator;
     // starting throw time
     private Vector3 startPoint;
     private float startTime;
@@ -57,7 +58,7 @@ public class Disk : MonoBehaviour
 
             case DiskState.Returning:
                 //journeyLength = Vector3.Distance(target.transform.position, anchor.transform.position);
-                distCovered = (Time.time - startTime) * speed;
+                distCovered = (Time.time - startTime) * returnSpeed;
                 fracJourney = distCovered / journeyLength;
                 disk.transform.position = Vector3.Lerp(target.transform.position, avatar.transform.position, fracJourney);
                 // check destination
@@ -70,9 +71,15 @@ public class Disk : MonoBehaviour
         }
     }
 
+    public void BeginThrow()
+    {
+        currentState = DiskState.WaitingAnimation;
+        animator.SetTrigger("Throw");
+    }
+
     public void Throw()
     {
-        if (currentState != DiskState.Default) return;
+        //if (currentState != DiskState.WaitingAnimation) return;
         // start throw
         currentState = DiskState.Thrown;
         startTime = Time.time;
@@ -80,8 +87,12 @@ public class Disk : MonoBehaviour
         targetPosition.z += distance;
         target.transform.position = targetPosition;
         disk.transform.position = anchor.transform.position;
+        disk.transform.rotation = anchor.transform.rotation;
         startPoint = anchor.transform.position;
         journeyLength = Vector3.Distance(anchor.transform.position, target.transform.position);
+        // turn off/on renderers
+        disk.GetComponent<Renderer>().enabled = true;
+        dummyDisk.GetComponent<Renderer>().enabled = false;
     }
 
     private void Comeback()
@@ -98,8 +109,10 @@ public class Disk : MonoBehaviour
     {
         currentState = DiskState.Default;
         startTime = 0;
+        disk.GetComponent<Renderer>().enabled = false;
+        dummyDisk.GetComponent<Renderer>().enabled = true;
         // begin cooldown
-        
+
     }
 
     /* IEnumerator Throw(float dist, float width, Vector3 direction, float time)
