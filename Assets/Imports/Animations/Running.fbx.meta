@@ -1,111 +1,111 @@
 fileFormatVersion: 2
-guid: 434a333e0c7d7354d9754b4dcce4e6d2
-timeCreated: 1488212576
+guid: 470259b6a2f37124ba69c0d1e9dd83f7
+timeCreated: 1488294159
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: mixamorig:Head
-    100004: mixamorig:HeadTop_End
-    100006: mixamorig:Hips
-    100008: mixamorig:LeftArm
-    100010: mixamorig:LeftFoot
-    100012: mixamorig:LeftForeArm
-    100014: mixamorig:LeftHand
-    100016: mixamorig:LeftHandIndex1
-    100018: mixamorig:LeftHandIndex2
-    100020: mixamorig:LeftHandIndex3
-    100022: mixamorig:LeftHandIndex4
-    100024: mixamorig:LeftHandMiddle1
-    100026: mixamorig:LeftHandMiddle2
-    100028: mixamorig:LeftHandMiddle3
-    100030: mixamorig:LeftHandMiddle4
-    100032: mixamorig:LeftHandThumb1
-    100034: mixamorig:LeftHandThumb2
-    100036: mixamorig:LeftHandThumb3
-    100038: mixamorig:LeftHandThumb4
-    100040: mixamorig:LeftLeg
-    100042: mixamorig:LeftShoulder
-    100044: mixamorig:LeftToe_End
-    100046: mixamorig:LeftToeBase
-    100048: mixamorig:LeftUpLeg
-    100050: mixamorig:Neck
-    100052: mixamorig:RightArm
-    100054: mixamorig:RightFoot
-    100056: mixamorig:RightForeArm
-    100058: mixamorig:RightHand
-    100060: mixamorig:RightHandIndex1
-    100062: mixamorig:RightHandIndex2
-    100064: mixamorig:RightHandIndex3
-    100066: mixamorig:RightHandIndex4
-    100068: mixamorig:RightHandMiddle1
-    100070: mixamorig:RightHandMiddle2
-    100072: mixamorig:RightHandMiddle3
-    100074: mixamorig:RightHandMiddle4
-    100076: mixamorig:RightHandThumb1
-    100078: mixamorig:RightHandThumb2
-    100080: mixamorig:RightHandThumb3
-    100082: mixamorig:RightHandThumb4
-    100084: mixamorig:RightLeg
-    100086: mixamorig:RightShoulder
-    100088: mixamorig:RightToe_End
-    100090: mixamorig:RightToeBase
-    100092: mixamorig:RightUpLeg
-    100094: mixamorig:Spine
-    100096: mixamorig:Spine1
-    100098: mixamorig:Spine2
-    400000: //RootNode
-    400002: mixamorig:Head
-    400004: mixamorig:HeadTop_End
-    400006: mixamorig:Hips
-    400008: mixamorig:LeftArm
-    400010: mixamorig:LeftFoot
-    400012: mixamorig:LeftForeArm
-    400014: mixamorig:LeftHand
-    400016: mixamorig:LeftHandIndex1
-    400018: mixamorig:LeftHandIndex2
-    400020: mixamorig:LeftHandIndex3
-    400022: mixamorig:LeftHandIndex4
-    400024: mixamorig:LeftHandMiddle1
-    400026: mixamorig:LeftHandMiddle2
-    400028: mixamorig:LeftHandMiddle3
-    400030: mixamorig:LeftHandMiddle4
-    400032: mixamorig:LeftHandThumb1
-    400034: mixamorig:LeftHandThumb2
-    400036: mixamorig:LeftHandThumb3
-    400038: mixamorig:LeftHandThumb4
-    400040: mixamorig:LeftLeg
-    400042: mixamorig:LeftShoulder
-    400044: mixamorig:LeftToe_End
-    400046: mixamorig:LeftToeBase
-    400048: mixamorig:LeftUpLeg
-    400050: mixamorig:Neck
-    400052: mixamorig:RightArm
-    400054: mixamorig:RightFoot
-    400056: mixamorig:RightForeArm
-    400058: mixamorig:RightHand
-    400060: mixamorig:RightHandIndex1
-    400062: mixamorig:RightHandIndex2
-    400064: mixamorig:RightHandIndex3
-    400066: mixamorig:RightHandIndex4
-    400068: mixamorig:RightHandMiddle1
-    400070: mixamorig:RightHandMiddle2
-    400072: mixamorig:RightHandMiddle3
-    400074: mixamorig:RightHandMiddle4
-    400076: mixamorig:RightHandThumb1
-    400078: mixamorig:RightHandThumb2
-    400080: mixamorig:RightHandThumb3
-    400082: mixamorig:RightHandThumb4
-    400084: mixamorig:RightLeg
-    400086: mixamorig:RightShoulder
-    400088: mixamorig:RightToe_End
-    400090: mixamorig:RightToeBase
-    400092: mixamorig:RightUpLeg
-    400094: mixamorig:Spine
-    400096: mixamorig:Spine1
-    400098: mixamorig:Spine2
-    7400000: Disk Throw
+    100000: mixamorig:Head
+    100002: mixamorig:HeadTop_End
+    100004: mixamorig:Hips
+    100006: mixamorig:LeftArm
+    100008: mixamorig:LeftFoot
+    100010: mixamorig:LeftForeArm
+    100012: mixamorig:LeftHand
+    100014: mixamorig:LeftHandIndex1
+    100016: mixamorig:LeftHandIndex2
+    100018: mixamorig:LeftHandIndex3
+    100020: mixamorig:LeftHandIndex4
+    100022: mixamorig:LeftHandMiddle1
+    100024: mixamorig:LeftHandMiddle2
+    100026: mixamorig:LeftHandMiddle3
+    100028: mixamorig:LeftHandMiddle4
+    100030: mixamorig:LeftHandThumb1
+    100032: mixamorig:LeftHandThumb2
+    100034: mixamorig:LeftHandThumb3
+    100036: mixamorig:LeftHandThumb4
+    100038: mixamorig:LeftLeg
+    100040: mixamorig:LeftShoulder
+    100042: mixamorig:LeftToe_End
+    100044: mixamorig:LeftToeBase
+    100046: mixamorig:LeftUpLeg
+    100048: mixamorig:Neck
+    100050: mixamorig:RightArm
+    100052: mixamorig:RightFoot
+    100054: mixamorig:RightForeArm
+    100056: mixamorig:RightHand
+    100058: mixamorig:RightHandIndex1
+    100060: mixamorig:RightHandIndex2
+    100062: mixamorig:RightHandIndex3
+    100064: mixamorig:RightHandIndex4
+    100066: mixamorig:RightHandMiddle1
+    100068: mixamorig:RightHandMiddle2
+    100070: mixamorig:RightHandMiddle3
+    100072: mixamorig:RightHandMiddle4
+    100074: mixamorig:RightHandThumb1
+    100076: mixamorig:RightHandThumb2
+    100078: mixamorig:RightHandThumb3
+    100080: mixamorig:RightHandThumb4
+    100082: mixamorig:RightLeg
+    100084: mixamorig:RightShoulder
+    100086: mixamorig:RightToe_End
+    100088: mixamorig:RightToeBase
+    100090: mixamorig:RightUpLeg
+    100092: mixamorig:Spine
+    100094: mixamorig:Spine1
+    100096: mixamorig:Spine2
+    100098: //RootNode
+    400000: mixamorig:Head
+    400002: mixamorig:HeadTop_End
+    400004: mixamorig:Hips
+    400006: mixamorig:LeftArm
+    400008: mixamorig:LeftFoot
+    400010: mixamorig:LeftForeArm
+    400012: mixamorig:LeftHand
+    400014: mixamorig:LeftHandIndex1
+    400016: mixamorig:LeftHandIndex2
+    400018: mixamorig:LeftHandIndex3
+    400020: mixamorig:LeftHandIndex4
+    400022: mixamorig:LeftHandMiddle1
+    400024: mixamorig:LeftHandMiddle2
+    400026: mixamorig:LeftHandMiddle3
+    400028: mixamorig:LeftHandMiddle4
+    400030: mixamorig:LeftHandThumb1
+    400032: mixamorig:LeftHandThumb2
+    400034: mixamorig:LeftHandThumb3
+    400036: mixamorig:LeftHandThumb4
+    400038: mixamorig:LeftLeg
+    400040: mixamorig:LeftShoulder
+    400042: mixamorig:LeftToe_End
+    400044: mixamorig:LeftToeBase
+    400046: mixamorig:LeftUpLeg
+    400048: mixamorig:Neck
+    400050: mixamorig:RightArm
+    400052: mixamorig:RightFoot
+    400054: mixamorig:RightForeArm
+    400056: mixamorig:RightHand
+    400058: mixamorig:RightHandIndex1
+    400060: mixamorig:RightHandIndex2
+    400062: mixamorig:RightHandIndex3
+    400064: mixamorig:RightHandIndex4
+    400066: mixamorig:RightHandMiddle1
+    400068: mixamorig:RightHandMiddle2
+    400070: mixamorig:RightHandMiddle3
+    400072: mixamorig:RightHandMiddle4
+    400074: mixamorig:RightHandThumb1
+    400076: mixamorig:RightHandThumb2
+    400078: mixamorig:RightHandThumb3
+    400080: mixamorig:RightHandThumb4
+    400082: mixamorig:RightLeg
+    400084: mixamorig:RightShoulder
+    400086: mixamorig:RightToe_End
+    400088: mixamorig:RightToeBase
+    400090: mixamorig:RightUpLeg
+    400092: mixamorig:Spine
+    400094: mixamorig:Spine1
+    400096: mixamorig:Spine2
+    400098: //RootNode
+    7400000: Running
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -129,17 +129,17 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Disk Throw
+      name: Running
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 22
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -151,14 +151,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.69461906
-        functionName: Throw
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1

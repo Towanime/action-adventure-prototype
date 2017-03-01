@@ -32,15 +32,15 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log("Rotate towards: " + newDir);
             // rotate character
             avatar.transform.rotation = Quaternion.LookRotation(newDir);
-            // move character
         }
         direction.y -= gravity * Time.deltaTime;
 
+        // move character
         this.characterController.Move(direction);
 
         if (playerInput.action)
         {
-            GetComponent<Disk>().BeginThrow();
+            avatar.GetComponent<Disk>().BeginThrow();
         }
        // Debug.Log("Is grounded: " + this.characterController.isGrounded);
     }

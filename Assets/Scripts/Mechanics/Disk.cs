@@ -6,6 +6,7 @@ public class Disk : MonoBehaviour
 {
     private enum DiskState { Default, WaitingAnimation, Thrown, Returning };
 
+    public PlayerInput playerInput;
     [Tooltip("Hand on the model from where the throw will begin.")]
     public GameObject anchor;
     /// <summary>
@@ -29,13 +30,16 @@ public class Disk : MonoBehaviour
     private Vector3 startPoint;
     private float startTime;
     private float journeyLength;
-    private bool thrown;
-    private bool returning;
     private DiskState currentState;
+    // collider stuff
+    private bool collided;
+    private Collider diskCollider;
+    private GameObject markedObject;
 
     void Start()
     {
         target = new GameObject();
+        diskCollider = disk.GetComponent<Collider>();
     }
 
     void Update()
@@ -57,10 +61,9 @@ public class Disk : MonoBehaviour
                 break;
 
             case DiskState.Returning:
-                //journeyLength = Vector3.Distance(target.transform.position, anchor.transform.position);
                 distCovered = (Time.time - startTime) * returnSpeed;
                 fracJourney = distCovered / journeyLength;
-                disk.transform.position = Vector3.Lerp(target.transform.position, avatar.transform.position, fracJourney);
+                disk.transform.position = Vector3.Lerp(startPoint, anchor.transform.position, fracJourney);
                 // check destination
                 if (fracJourney >= 1)
                 {
@@ -82,10 +85,14 @@ public class Disk : MonoBehaviour
         //if (currentState != DiskState.WaitingAnimation) return;
         // start throw
         currentState = DiskState.Thrown;
+        collided = false;
+        markedObject = null;
         startTime = Time.time;
+        // move target to the avatar forward
         Vector3 targetPosition = anchor.transform.position;
-        targetPosition.z += distance;
+        targetPosition = targetPosition + (avatar.transform.forward.normalized * distance);
         target.transform.position = targetPosition;
+        // set starting position and rotation for the real disk
         disk.transform.position = anchor.transform.position;
         disk.transform.rotation = anchor.transform.rotation;
         startPoint = anchor.transform.position;
@@ -93,6 +100,8 @@ public class Disk : MonoBehaviour
         // turn off/on renderers
         disk.GetComponent<Renderer>().enabled = true;
         dummyDisk.GetComponent<Renderer>().enabled = false;
+        // turn on collider
+        diskCollider.enabled = true;
     }
 
     private void Comeback()
@@ -100,46 +109,36 @@ public class Disk : MonoBehaviour
         // start returning with delay
         currentState = DiskState.Returning;
         startTime = Time.time;
-        startPoint = target.transform.position;
+        startPoint = disk.transform.position;//target.transform.position;
         journeyLength = Vector3.Distance(startPoint, anchor.transform.position);
-        //arm.GetComponent<Collider>().enabled = false;
     }
 
     private void End()
     {
         currentState = DiskState.Default;
         startTime = 0;
+        // renderers and collider
         disk.GetComponent<Renderer>().enabled = false;
         dummyDisk.GetComponent<Renderer>().enabled = true;
+        diskCollider.enabled = false;
         // begin cooldown
-
+    }
+    
+    public void OnCollision(Collision collision)
+    {
+        collided = true;
+        Debug.Log("Object collided: " + collision.gameObject.name);
+        markedObject = collision.gameObject;
+        Comeback();
     }
 
-    /* IEnumerator Throw(float dist, float width, Vector3 direction, float time)
-     {
-         Vector3 pos = anchor.transform.position;
-         float height = anchor.transform.position.y;
-         Quaternion q = Quaternion.FromToRotation(Vector3.forward, direction);
-         float timer = 0.0f;
-         //rigidbody.AddTorque(0.0f, 400.0f, 0.0f);
-         while (timer < time)
-         {
-             float t = Mathf.PI * 2.0f * timer / time - Mathf.PI / 2.0f;
-             float x = width * Mathf.Cos(t);
-             float z = dist * Mathf.Sin(t);
-             Vector3 v = new Vector3(x, height, z + dist);
-             //rigidbody.MovePosition(pos + (q * v));
-             transform.Translate(pos + (q * v));
-             timer += Time.deltaTime;
-             yield return null;
-         }
+    public GameObject MarkedObject
+    {
+        get { return this.markedObject; }
+    }
 
-         transform.LookAt(anchor.transform);
-         //transform.Translate();
-
-         /*rigidbody.angularVelocity = Vector3.zero;
-         rigidbody.velocity = Vector3.zero;
-         rigidbody.rotation = Quaternion.identity;
-         rigidbody.MovePosition(anchor.transform.position);*/
-
+    public bool Collided
+    {
+        get { return this.collided; }
+    }
 }

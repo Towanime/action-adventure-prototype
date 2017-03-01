@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 434a333e0c7d7354d9754b4dcce4e6d2
-timeCreated: 1488212576
+guid: 7542809d702b886458023d035dea9dc6
+timeCreated: 1488294055
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -55,6 +55,7 @@ ModelImporter:
     100094: mixamorig:Spine
     100096: mixamorig:Spine1
     100098: mixamorig:Spine2
+    100100: MuscleMan
     400000: //RootNode
     400002: mixamorig:Head
     400004: mixamorig:HeadTop_End
@@ -105,8 +106,11 @@ ModelImporter:
     400094: mixamorig:Spine
     400096: mixamorig:Spine1
     400098: mixamorig:Spine2
-    7400000: Disk Throw
+    400100: MuscleMan
+    4300000: MuscleMan
+    7400000: T-pose
     9500000: //RootNode
+    13700000: MuscleMan
   materials:
     importMaterials: 1
     materialName: 0
@@ -129,10 +133,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Disk Throw
+      name: T-pose
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -140,7 +144,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -151,14 +155,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.69461906
-        functionName: Throw
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1
@@ -259,6 +256,8 @@ ModelImporter:
       - path: mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3
         weight: 1
       - path: mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3/mixamorig:RightHandThumb4
+        weight: 1
+      - path: MuscleMan
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}

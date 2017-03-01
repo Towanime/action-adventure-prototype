@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : MonoBehaviour {
+public class Laser : MonoBehaviour
+{
+    public LineRenderer line;
+    public GameObject emissor;
     public float damage;
     public float damageRate = 1;
-    private LineRenderer line;
     private DamageableEntity target;
     private bool firstHit;
 
     // Use this for initialization
     void Start () {
-        line = GetComponent<LineRenderer>();
         line.enabled = false;
         StartCoroutine("FireLaser");
         //FireLaser();
@@ -28,7 +29,7 @@ public class Laser : MonoBehaviour {
         line.enabled = true;
         while (true)
         {
-            Ray ray = new Ray(transform.position, transform.forward);
+            Ray ray = new Ray(emissor.transform.position, emissor.transform.forward);
             RaycastHit hit;
 
             line.SetPosition(0, ray.origin);
