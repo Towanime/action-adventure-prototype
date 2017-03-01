@@ -15,7 +15,7 @@ public class DamageableEntity : MonoBehaviour
 
     public virtual bool OnDamage(GameObject origin, float damage)
     {
-        Debug.Log("Damage!");
+        Debug.Log("Damage on object: " + gameObject.name);
         if (ignoreDamage) return false;
         ModifyCurrentLife(damage);
         if (currentLife <= 0)
