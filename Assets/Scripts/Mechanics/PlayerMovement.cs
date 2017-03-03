@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed = 3f;
     public float rotationSpeed = 10f;
     public float gravity = 10f;
+    public bool isDisabled;
     private float currentRotationVelocity = 0.0f;
     private Vector3 currentRotationVelocityV = Vector3.zero;
     private CharacterController characterController;
@@ -24,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (isDisabled) return;
         Vector3 direction = this.playerInput.direction * walkSpeed * Time.deltaTime;
         if (this.characterController.isGrounded)
         {
@@ -38,10 +40,16 @@ public class PlayerMovement : MonoBehaviour
         // move character
         this.characterController.Move(direction);
 
-        if (playerInput.action)
+       /* if (playerInput.disk)
         {
             avatar.GetComponent<Disk>().BeginThrow();
-        }
+        }*/
        // Debug.Log("Is grounded: " + this.characterController.isGrounded);
+    }
+
+    public bool Disabled
+    {
+        get { return this.isDisabled; }
+        set { this.isDisabled = value; }
     }
 }

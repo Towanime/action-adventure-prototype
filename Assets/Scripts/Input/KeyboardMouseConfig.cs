@@ -8,8 +8,8 @@ public class KeyboardMouseConfig : MonoBehaviour
     public KeyCode right;
     public KeyCode forward;
     public KeyCode backwards;
-    public KeyCode action;
-    public KeyCode run;
+    public KeyCode attack;
+    public KeyCode disk;
     public bool invertY;
     public float mouseXSensitivity;
     public float mouseYSensitivity;

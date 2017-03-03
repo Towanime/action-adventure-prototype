@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Disk : MonoBehaviour
 {
-    private enum DiskState { Default, WaitingAnimation, Thrown, Returning };
 
     public PlayerInput playerInput;
     [Tooltip("Hand on the model from where the throw will begin.")]
@@ -30,7 +29,7 @@ public class Disk : MonoBehaviour
     private Vector3 startPoint;
     private float startTime;
     private float journeyLength;
-    private DiskState currentState;
+    private DiskStates currentState;
     // collider stuff
     private bool collided;
     private Collider diskCollider;
@@ -47,7 +46,7 @@ public class Disk : MonoBehaviour
 
         switch (currentState)
         {
-            case DiskState.Thrown:
+            case DiskStates.Thrown:
                 float distCovered = (Time.time - startTime) * speed;
                 float fracJourney = distCovered / journeyLength;
                 // update position of the disk
@@ -60,7 +59,7 @@ public class Disk : MonoBehaviour
                 }
                 break;
 
-            case DiskState.Returning:
+            case DiskStates.Returning:
                 distCovered = (Time.time - startTime) * returnSpeed;
                 fracJourney = distCovered / journeyLength;
                 disk.transform.position = Vector3.Lerp(startPoint, anchor.transform.position, fracJourney);
@@ -76,7 +75,7 @@ public class Disk : MonoBehaviour
 
     public void BeginThrow()
     {
-        currentState = DiskState.WaitingAnimation;
+        currentState = DiskStates.WaitingAnimation;
         animator.SetTrigger("Throw");
     }
 
@@ -84,7 +83,7 @@ public class Disk : MonoBehaviour
     {
         //if (currentState != DiskState.WaitingAnimation) return;
         // start throw
-        currentState = DiskState.Thrown;
+        currentState = DiskStates.Thrown;
         collided = false;
         markedObject = null;
         startTime = Time.time;
@@ -107,7 +106,7 @@ public class Disk : MonoBehaviour
     private void Comeback()
     {
         // start returning with delay
-        currentState = DiskState.Returning;
+        currentState = DiskStates.Returning;
         startTime = Time.time;
         startPoint = disk.transform.position;//target.transform.position;
         journeyLength = Vector3.Distance(startPoint, anchor.transform.position);
@@ -115,7 +114,7 @@ public class Disk : MonoBehaviour
 
     private void End()
     {
-        currentState = DiskState.Default;
+        currentState = DiskStates.Default;
         startTime = 0;
         // renderers and collider
         disk.GetComponent<Renderer>().enabled = false;
@@ -140,5 +139,10 @@ public class Disk : MonoBehaviour
     public bool Collided
     {
         get { return this.collided; }
+    }
+
+    public DiskStates CurrentState
+    {
+        get { return this.currentState; }
     }
 }

@@ -13,13 +13,10 @@ public class PlayerInput : MonoBehaviour
     [Tooltip("Rotation from the mouse to apply on the camera.")]
     public Vector3 rotation;
     /// <summary>
-    /// True if the player pressed the action key in this frame.
+    /// True if the player pressed the attack key in this frame.
     /// </summary>
-    public bool action;
-    /// <summary>
-    /// True if the player is holding the run key.
-    /// </summary>
-    public bool run;
+    public bool attack;
+    public bool disk;
     private Vector3 cameraDirection;
 
     void Update()
@@ -27,8 +24,7 @@ public class PlayerInput : MonoBehaviour
         // update values depending on the input
         this.SetDirection();
         this.SetRotation();
-        this.SetAction();
-        this.SetRun();
+        this.SetActions();
     }
 
     private void SetDirection()
@@ -74,13 +70,9 @@ public class PlayerInput : MonoBehaviour
         this.rotation = new Vector3(yaw, pitch, 0f);
     }
 
-    private void SetAction()
+    private void SetActions()
     {
-        this.action = Input.GetKeyDown(this.config.action);
-    }
-
-    private void SetRun()
-    {
-        this.run = Input.GetKey(this.config.run);
-    }
+        this.attack = Input.GetKeyDown(this.config.attack);
+        this.disk = Input.GetKeyDown(this.config.disk);
+    }    
 }
