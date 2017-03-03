@@ -17,6 +17,11 @@ public class PlayerStateMachine : MonoBehaviour {
         fsm = StateMachine<PlayerStates>.Initialize(this, PlayerStates.Idle);
     }
 
+    void Update()
+    {
+        Debug.Log(fsm.State);
+    }
+
     void Idle_Enter()
     {
         playerMovement.Disabled = false;
