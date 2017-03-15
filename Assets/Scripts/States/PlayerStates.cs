@@ -5,5 +5,7 @@ using UnityEngine;
 public enum PlayerStates {
     Idle,
     Attack,
-    DiskThrow
+    DiskThrow,
+    ArchitectMode,
+    ManipulationMode
 }

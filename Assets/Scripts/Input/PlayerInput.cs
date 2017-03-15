@@ -10,6 +10,8 @@ public class PlayerInput : MonoBehaviour
     public GameObject cameraAnchor;
     [Tooltip("Direction to where the player will move next.")]
     public Vector3 direction;
+    [Tooltip("The first direction detected without merging multiple orientations.")]
+    public Vector3 rawDirection;
     [Tooltip("Rotation from the mouse to apply on the camera.")]
     public Vector3 rotation;
     /// <summary>
@@ -17,12 +19,15 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     public bool attack;
     public bool disk;
+    public bool architectMode;
+    public bool holdingAction;
     private Vector3 cameraDirection;
 
     void Update()
     {
         // update values depending on the input
         this.SetDirection();
+        this.SetRawDirection();
         this.SetRotation();
         this.SetActions();
     }
@@ -35,26 +40,45 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKey(this.config.forward))
         {
-            this.direction += transform.forward;
             this.cameraDirection += cameraAnchor.transform.forward;
         }
         else if (Input.GetKey(this.config.backwards))
         {
-            this.direction -= transform.forward;
             this.cameraDirection -= cameraAnchor.transform.forward;
         }
 
         if (Input.GetKey(this.config.left))
         {
-            this.direction -= transform.right;
             this.cameraDirection -= cameraAnchor.transform.right;
         }
         else if (Input.GetKey(this.config.right))
         {
-            this.direction += transform.right;
             this.cameraDirection += cameraAnchor.transform.right;
         }
         this.direction = this.cameraDirection.normalized;
+    }
+
+    private void SetRawDirection()
+    {
+        // merge these vars later
+        this.rawDirection = Vector3.zero;
+
+        if (Input.GetKey(this.config.forward))
+        {
+            this.rawDirection = cameraAnchor.transform.forward;
+        }
+        else if (Input.GetKey(this.config.backwards))
+        {
+            this.rawDirection -= cameraAnchor.transform.forward;
+        }else if (Input.GetKey(this.config.left))
+        {
+            this.rawDirection -= cameraAnchor.transform.right;
+        }
+        else if (Input.GetKey(this.config.right))
+        {
+            this.rawDirection = cameraAnchor.transform.right;
+        }
+        this.rawDirection = this.rawDirection.normalized;
     }
 
     private void SetRotation()
@@ -74,5 +98,7 @@ public class PlayerInput : MonoBehaviour
     {
         this.attack = Input.GetKeyDown(this.config.attack);
         this.disk = Input.GetKeyDown(this.config.disk);
+        this.architectMode = Input.GetKeyDown(this.config.architectMode);
+        this.holdingAction = Input.GetKey(this.config.attack);
     }    
 }

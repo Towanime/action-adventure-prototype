@@ -9,6 +9,9 @@ public class PlayerStateMachine : MonoBehaviour {
     public PlayerInput playerInput;
     // other components
     public PlayerMovement playerMovement;
+    public ArchitectMode architectComponent;
+    public Manipulator manipulationComponent;
+    public CameraController cameraController;
     public Disk disk;
     public Sword sword;
 
@@ -19,7 +22,6 @@ public class PlayerStateMachine : MonoBehaviour {
 
     void Update()
     {
-        Debug.Log(fsm.State);
     }
 
     void Idle_Enter()
@@ -29,19 +31,24 @@ public class PlayerStateMachine : MonoBehaviour {
 
     void Idle_Update()
     {
-        if (playerInput.attack)
+        if ((playerInput.attack || playerInput.disk) && manipulationComponent.InSight())
         {
-            fsm.ChangeState(PlayerStates.Attack);
+            fsm.ChangeState(PlayerStates.ManipulationMode);
         }
-        if (playerInput.disk && disk.CurrentState == DiskStates.Default)
+        /*if (playerInput.disk && disk.CurrentState == DiskStates.Default)
         {
             fsm.ChangeState(PlayerStates.DiskThrow);
         }
+        if (playerInput.architectMode)
+        {
+            fsm.ChangeState(PlayerStates.ArchitectMode);
+        }*/
     }
 
     void Attack_Enter()
     {
         // enable sword trigger?
+        //cameraController.ActivateAimingMode();
     }
 
     void Attack_Exit()
@@ -62,5 +69,47 @@ public class PlayerStateMachine : MonoBehaviour {
             playerMovement.Disabled = false;
             fsm.ChangeState(PlayerStates.Idle);
         }
+    }
+
+    void ArchitectMode_Enter()
+    {
+        playerMovement.Disabled = true;
+        architectComponent.Activate();
+    }
+
+
+    void ArchitectMode_Update()
+    {
+        if (playerInput.architectMode)
+        {
+            fsm.ChangeState(PlayerStates.Idle);
+        }
+    }
+
+    void ArchitectMode_Exit()
+    {
+        playerMovement.Disabled = false;
+        architectComponent.Deactivate();
+    }
+
+    void ManipulationMode_Enter()
+    {
+        playerMovement.Disabled = true;
+        manipulationComponent.Disabled = false;
+        manipulationComponent.Activate();
+    }
+
+    void ManipulationMode_Update()
+    {
+        if (manipulationComponent.IsDone())
+        {
+            fsm.ChangeState(PlayerStates.Idle);
+        }
+    }
+
+    void ManipulationMode_Exit()
+    {
+        playerMovement.Disabled = false;
+        manipulationComponent.Disabled = true;
     }
 }
