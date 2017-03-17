@@ -17,18 +17,22 @@ public class ManipulableObject : MonoBehaviour
     // true if it's done changing the scale and position
     private bool isScaleDone;
     private bool isMovementDone;
+    private Collider platformCollider;
 
     void Start()
     {
         currentState = initialState;
         initialPosition = target.transform.localPosition;
         SetScale(false);
+        platformCollider = platform.GetComponent<Collider>();
+        platformCollider.enabled = false;
     }
 
     public void Grow()
     {
         // max two
         int nextState = Mathf.Min(currentState + 1, 2);
+        Debug.Log("Grow " + nextState);
         if (currentState != nextState)
         {
             currentState = nextState;
@@ -39,6 +43,7 @@ public class ManipulableObject : MonoBehaviour
     public void Shrink()
     {
         int nextState = Mathf.Max(currentState - 1, 0);
+        Debug.Log("Shrink - Current: " + currentState + " - Next: " + nextState);
         if (currentState != nextState)
         {
             currentState = nextState;
@@ -59,19 +64,31 @@ public class ManipulableObject : MonoBehaviour
                 {
                     // progress
                     target.transform.localScale = t.CurrentValue;
+                    //platform.transform.localScale = t.CurrentValue;
                 },
                 (t) =>
                 {
                     isScaleDone = true;
                 });
             // position 
-            platform.gameObject.Tween("MoveObject", platform.transform.localPosition,
-                positions[currentState], 0.3f, TweenScaleFunctions.CubicEaseIn,
+            platform.gameObject.Tween("MovePlatform", platform.transform.localPosition,
+                positions[currentState] * 2, 0.3f, TweenScaleFunctions.CubicEaseIn,
                 (t) =>
                 {
                     // progress
                     //.transform.localPosition = t.CurrentValue;
                     platform.transform.localPosition = t.CurrentValue;
+                },
+                (t) =>
+                {
+                    isMovementDone = true;
+                });
+            target.gameObject.Tween("MoveObject", target.transform.localPosition,
+                positions[currentState], 0.3f, TweenScaleFunctions.CubicEaseIn,
+                (t) =>
+                {
+                    // progress
+                    target.transform.localPosition = t.CurrentValue;
                 },
                 (t) =>
                 {
@@ -105,12 +122,45 @@ public class ManipulableObject : MonoBehaviour
         {
             // set it right away
             target.transform.localScale = scales[currentState];
+            //platform.transform.localScale = scales[currentState];
             target.transform.localPosition = positions[currentState];
+            isMovementDone = true;
+            isScaleDone = true;
         }
 
     }
+    /*
+    public void OnTriggerExit(Collider other)
+    {
+        if (player != null)
+        {
+            player.transform.parent = null;
+            player = null;
+            platformCollider.enabled = false;
+        }
+    }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player = other.gameObject;
+            player.transform.parent = platform.transform;
+            platformCollider.enabled = true;
+        }
+    }
 
+    public void OnTriggerStay(Collider other)
+    {
+        if (player != null && other.CompareTag("Player"))
+        {
+            player = other.gameObject;
+            player.transform.parent = platform.transform;
+            platformCollider.enabled = true;
+        }
+    }
+
+    /*
     public void OnTriggerExit(Collider other)
     {
         if(player != null){
@@ -127,6 +177,15 @@ public class ManipulableObject : MonoBehaviour
             player.transform.parent = platform.transform;
         }
     }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (player != null && other.CompareTag("Player"))
+        {
+            player = other.gameObject;
+            player.transform.parent = platform.transform;
+        }
+    }*/
 
     public bool IsDone()
     {
