@@ -10,6 +10,7 @@ public class Laser : MonoBehaviour
     public float damageRate = 1;
     private DamageableEntity target;
     private SwitchActivator switchActivator;
+    private SwitchActivator lastSwitchActivator;
     private bool firstHit;
 
     // Use this for initialization
@@ -38,26 +39,37 @@ public class Laser : MonoBehaviour
             {
                 line.SetPosition(1, hit.point);
                 target = hit.collider.gameObject.GetComponent<DamageableEntity>();
+                switchActivator = hit.collider.gameObject.GetComponent<SwitchActivator>();
                 if (!firstHit)
                 {
                     DoDamage();
                     firstHit = true;
-                    // check if switch 
-                    switchActivator = hit.collider.gameObject.GetComponent<SwitchActivator>();
-                    if(switchActivator != null)
-                    {
-                        switchActivator.Activate(gameObject);
-                    }
                 }
+                // check if switch 
+                //switchActivator = hit.collider.gameObject.GetComponent<SwitchActivator>();
+                if (switchActivator != null && switchActivator != lastSwitchActivator)
+                {
+                    switchActivator.Activate(gameObject);
+                    lastSwitchActivator = switchActivator;
+                }
+                // check if previous switch is differnt or it's not hitting a switch anymore
+                if (lastSwitchActivator != null && switchActivator == null)//(switchActivator == null || lastSwitchActivator != switchActivator))
+                {
+                    Debug.Log("Desactivate wat");
+                    lastSwitchActivator.Desactivate();
+                    lastSwitchActivator = null;
+                }
+                //lastSwitchActivator = switchActivator;
             }
             else
             {
                 if (switchActivator != null)
                 {
                     switchActivator.Desactivate();
+                    switchActivator = null;
+                    lastSwitchActivator = null;
                 }
                 target = null;
-                switchActivator = null;
                 firstHit = false;
                 line.SetPosition(1, ray.GetPoint(100));
             }

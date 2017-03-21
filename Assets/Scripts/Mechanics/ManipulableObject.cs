@@ -34,7 +34,7 @@ public class ManipulableObject : MonoBehaviour
     {
         // max two
         int nextState = Mathf.Min(currentState + 1, maxState);
-        Debug.Log("Grow " + nextState);
+        //Debug.Log("Grow " + nextState);
         if (currentState != nextState)
         {
             currentState = nextState;
@@ -45,7 +45,7 @@ public class ManipulableObject : MonoBehaviour
     public void Shrink()
     {
         int nextState = Mathf.Max(currentState - 1, minState);
-        Debug.Log("Shrink - Current: " + currentState + " - Next: " + nextState);
+        //Debug.Log("Shrink - Current: " + currentState + " - Next: " + nextState);
         if (currentState != nextState)
         {
             currentState = nextState;
@@ -66,7 +66,6 @@ public class ManipulableObject : MonoBehaviour
                 {
                     // progress
                     target.transform.localScale = t.CurrentValue;
-                    //platform.transform.localScale = t.CurrentValue;
                 },
                 (t) =>
                 {
@@ -78,7 +77,6 @@ public class ManipulableObject : MonoBehaviour
                 (t) =>
                 {
                     // progress
-                    //.transform.localPosition = t.CurrentValue;
                     platform.transform.localPosition = t.CurrentValue;
                 },
                 (t) =>
@@ -96,29 +94,6 @@ public class ManipulableObject : MonoBehaviour
                 {
                     isMovementDone = true;
                 });
-            /*target.gameObject.Tween("MoveObject", target.transform.localPosition,
-                positions[currentState], 0.3f, TweenScaleFunctions.CubicEaseIn,
-                (t) =>
-                {
-                    // progress
-                    target.transform.localPosition = t.CurrentValue;
-                },
-                (t) =>
-                {
-                    isMovementDone = true;
-                });*/
-
-            /* target.gameObject.Tween("MovePlatform", platform.transform.localPosition,
-                 positions[currentState], 0.3f, TweenScaleFunctions.CubicEaseIn,
-                 (t) =>
-                 {
-                     // progress
-                     platform.transform.localPosition = t.CurrentValue;
-                 },
-                 (t) =>
-                 {
-                     isMovementDone = true;
-                 });*/
         }
         else
         {
@@ -132,64 +107,7 @@ public class ManipulableObject : MonoBehaviour
         }
 
     }
-    /*
-    public void OnTriggerExit(Collider other)
-    {
-        if (player != null)
-        {
-            player.transform.parent = null;
-            player = null;
-            platformCollider.enabled = false;
-        }
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            player = other.gameObject;
-            player.transform.parent = platform.transform;
-            platformCollider.enabled = true;
-        }
-    }
-
-    public void OnTriggerStay(Collider other)
-    {
-        if (player != null && other.CompareTag("Player"))
-        {
-            player = other.gameObject;
-            player.transform.parent = platform.transform;
-            platformCollider.enabled = true;
-        }
-    }
-
-    /*
-    public void OnTriggerExit(Collider other)
-    {
-        if(player != null){
-            player.transform.parent = null;
-            player = null;
-        }
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            player = other.gameObject;
-            player.transform.parent = platform.transform;
-        }
-    }
-
-    public void OnTriggerStay(Collider other)
-    {
-        if (player != null && other.CompareTag("Player"))
-        {
-            player = other.gameObject;
-            player.transform.parent = platform.transform;
-        }
-    }*/
-
+    
     public bool IsDone()
     {
         return isScaleDone && isMovementDone;

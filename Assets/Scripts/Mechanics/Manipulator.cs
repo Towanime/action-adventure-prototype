@@ -49,47 +49,6 @@ public class Manipulator : MonoBehaviour {
             }
 
             isDone = targetComponent.IsDone();
-            /*if (!grabbing)
-            {
-                // first check if it's attached to a switch and detach it
-                Switch switchTile = target.GetComponentInParent<Switch>();
-                if (switchTile)
-                {
-                    switchTile.Detach();
-                }
-                // attach to avatar
-                target.transform.parent = gameObject.transform;
-                // make it kinematic
-                objectRigidBody = target.GetComponent<Rigidbody>();
-                objectRigidBody.isKinematic = true;
-                objectRigidBody.useGravity = false;
-                // change position of the grabbed object
-                target.transform.position = gameObject.transform.position;
-                target.transform.localPosition = new Vector3(1.5f, 0.5f, 2);
-                grabbing = true;
-                inSight = false;
-            }
-            else
-            {
-                // extra reycast to check if it's looking into a switch to auto attach
-                RaycastHit hit;
-                Ray ray = getCameraRay();
-                objectRigidBody.useGravity = true;
-                // Cast a ray
-                if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.CompareTag("Switch"))
-                {
-                    Switch script = hit.collider.gameObject.GetComponent<Switch>();
-                    // if it's null it might be in the parent! (It's pointing to the center of the switch which is another object)
-                    script = hit.collider.gameObject.GetComponentInParent<Switch>();
-                    // attach it? if returns false then the switch is already taken so it's ignored
-                    if (!script.Attach(target)) return;
-                    afterRelease();
-                }
-                else
-                {
-                    release();
-                }
-            }*/
         }
     }
 

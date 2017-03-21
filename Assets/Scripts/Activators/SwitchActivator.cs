@@ -8,6 +8,7 @@ public class SwitchActivator : BaseActivator {
 
     public override void Activate(GameObject trigger)
     {
+        Debug.Log(gameObject.name);
         activator.Activate(gameObject);
     }
 
