@@ -53,7 +53,7 @@ public class Laser : MonoBehaviour
                 // check if previous switch is differnt or it's not hitting a switch anymore
                 if (lastSwitchActivator != null && switchActivator == null)//(switchActivator == null || lastSwitchActivator != switchActivator))
                 {
-                    Debug.Log("Desactivate wat");
+                    //Debug.Log("Desactivate wat");
                     lastSwitchActivator.Desactivate();
                     lastSwitchActivator = null;
                 }
