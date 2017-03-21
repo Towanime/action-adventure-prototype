@@ -6,6 +6,8 @@ public class DamageableEntity : MonoBehaviour
 {
     public bool ignoreDamage = false;
     public float life;
+    public GameObject checkpoint;
+    public bool destroyOnDeath;
     protected float currentLife;
 
     void Start()
@@ -13,14 +15,14 @@ public class DamageableEntity : MonoBehaviour
         currentLife = life;
     }
 
-    public virtual bool OnDamage(GameObject origin, float damage)
+    public virtual bool OnDamage(GameObject origin, float damage, float delayDeath = 0)
     {
-        Debug.Log("Damage on object: " + gameObject.name);
+        //Debug.Log("Damage on object: " + gameObject.name);
         if (ignoreDamage) return false;
         ModifyCurrentLife(damage);
         if (currentLife <= 0)
         {
-            OnDeath();
+            Invoke("OnDeath", delayDeath);
         }
         return true;
     }
@@ -32,14 +34,25 @@ public class DamageableEntity : MonoBehaviour
 
     protected virtual void OnDeath()
     {
-        Debug.Log("Destroyed!");
-        Refresh();
-        //Destroy(gameObject);
+        if (checkpoint)
+        {
+            Refresh();
+            gameObject.transform.position = checkpoint.transform.position;
+        }
+        if (destroyOnDeath)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public virtual void Refresh()
     {
         currentLife = life;
+    }
+
+    public virtual void SetCheckpoint(GameObject checkpoint)
+    {
+        this.checkpoint = checkpoint;
     }
 
     public float CurrentLife
