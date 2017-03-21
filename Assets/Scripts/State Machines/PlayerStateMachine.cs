@@ -18,11 +18,22 @@ public class PlayerStateMachine : MonoBehaviour {
     public Animator animator;
     // this should not be here but in a rush!
     public float attackDuration;
+    // ui thingy rush mode
+    public GameObject manipulatorUi;
+    public GameObject attackUi;
     private float currentDuration;
+    private AudioSource audioSource;
+    public AudioClip swordSfx;
 
     void Awake()
     {
         fsm = StateMachine<PlayerStates>.Initialize(this, PlayerStates.Idle);
+        attackUi.SetActive(true);
+    }
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -37,6 +48,16 @@ public class PlayerStateMachine : MonoBehaviour {
     void Idle_Update()
     {
         bool inSight = manipulationComponent.InSight();
+        if (inSight)
+        {
+            manipulatorUi.SetActive(true);
+            attackUi.SetActive(false);
+        }
+        else
+        {
+            manipulatorUi.SetActive(false);
+            attackUi.SetActive(true);
+        }
         if ((playerInput.attack || playerInput.disk) && inSight)
         {
             fsm.ChangeState(PlayerStates.ManipulationMode);
@@ -62,6 +83,8 @@ public class PlayerStateMachine : MonoBehaviour {
         playerMovement.Disabled = true;
         currentDuration = 0;
         animator.SetTrigger("Swing A");
+        audioSource.clip = swordSfx;
+        audioSource.Play();
     }
 
     void Attack_Update()
@@ -133,5 +156,6 @@ public class PlayerStateMachine : MonoBehaviour {
     {
         playerMovement.Disabled = false;
         manipulationComponent.Disabled = true;
+        manipulatorUi.SetActive(false);
     }
 }

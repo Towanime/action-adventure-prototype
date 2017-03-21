@@ -6,16 +6,19 @@ public class Manipulator : MonoBehaviour {
     public PlayerInput playerInput;
     public float maxDistance = 7;
     public bool isDisabled;
+    public AudioClip sfx;
     private GameObject target;
     private ManipulableObject targetComponent;
     private bool inSight;
     private bool isDone;
     private Camera camera;
+    private AudioSource audioSource;
 
     void Start()
     {
         camera = GetComponentInChildren<Camera>();
         isDone = true;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -43,13 +46,21 @@ public class Manipulator : MonoBehaviour {
             if (playerInput.attack)
             {
                 targetComponent.Grow();
+                PlaySfx();
             }else if (playerInput.disk)
             {
                 targetComponent.Shrink();
+                PlaySfx();
             }
 
             isDone = targetComponent.IsDone();
         }
+    }
+
+    private void PlaySfx()
+    {
+        audioSource.clip = sfx;
+        audioSource.Play();
     }
 
     private Ray getCameraRay()
