@@ -7,7 +7,7 @@ public class MoveToActivator : BaseActivator
     public GameObject toMove;
     public Transform desiredPosition;
     public float speed;
-    public bool returnToOrigin;
+    public bool loop;
     public float waitTime;
     private Vector3 origin;
     private Vector3 target;
@@ -28,18 +28,21 @@ public class MoveToActivator : BaseActivator
 
             if (toMove.transform.position == target)
             {
-                Debug.Log("Destination reached!");
-                returning = !returning;
-                if (returning)
+                if (loop)
                 {
-                    target = origin;
-                }else
-                {
-                    target = desiredPosition.transform.position;
+                    returning = !returning;
+                    if (returning)
+                    {
+                        target = origin;
+                    }
+                    else
+                    {
+                        target = desiredPosition.transform.position;
+                    }
+                    Invoke("Restart", waitTime);
                 }
                 // make it wait
                 active = false;
-                Invoke("Restart", waitTime);
             }
         }
         // turns off until the trigger activates it again.
@@ -48,6 +51,20 @@ public class MoveToActivator : BaseActivator
 
     private void Restart()
     {
+        active = true;
+    }
+
+    public override void Activate(GameObject trigger)
+    {
+        target = desiredPosition.transform.position;
+        active = true;
+    }
+
+    public override void Desactivate()
+    {
+        //base.Desactivate();
+        // return to origin if it's turned off
+        target = origin;
         active = true;
     }
 }

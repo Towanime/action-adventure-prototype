@@ -10,6 +10,8 @@ public class ManipulableObject : MonoBehaviour
     public GameObject player;
     // 0 = none, 1 = tile, 2 = cube
     public int initialState = 0;
+    public int minState = 0;
+    public int maxState = 2;
     public Vector3[] scales = new Vector3[] { new Vector3(1f, 0.5f, 1f), new Vector3(4f, 0.5f, 4f), new Vector3(4f, 4.5f, 4f) };
     public Vector3[] positions = new Vector3[] { Vector3.zero, Vector3.zero, new Vector3(0, 2f, 0) };
     private int currentState;
@@ -31,7 +33,7 @@ public class ManipulableObject : MonoBehaviour
     public void Grow()
     {
         // max two
-        int nextState = Mathf.Min(currentState + 1, 2);
+        int nextState = Mathf.Min(currentState + 1, maxState);
         Debug.Log("Grow " + nextState);
         if (currentState != nextState)
         {
@@ -42,7 +44,7 @@ public class ManipulableObject : MonoBehaviour
 
     public void Shrink()
     {
-        int nextState = Mathf.Max(currentState - 1, 0);
+        int nextState = Mathf.Max(currentState - 1, minState);
         Debug.Log("Shrink - Current: " + currentState + " - Next: " + nextState);
         if (currentState != nextState)
         {
@@ -124,6 +126,7 @@ public class ManipulableObject : MonoBehaviour
             target.transform.localScale = scales[currentState];
             //platform.transform.localScale = scales[currentState];
             target.transform.localPosition = positions[currentState];
+            platform.transform.localPosition = positions[currentState] * 2;
             isMovementDone = true;
             isScaleDone = true;
         }

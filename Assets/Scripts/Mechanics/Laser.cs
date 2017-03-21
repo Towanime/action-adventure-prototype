@@ -9,6 +9,7 @@ public class Laser : MonoBehaviour
     public float damage;
     public float damageRate = 1;
     private DamageableEntity target;
+    private SwitchActivator switchActivator;
     private bool firstHit;
 
     // Use this for initialization
@@ -41,11 +42,22 @@ public class Laser : MonoBehaviour
                 {
                     DoDamage();
                     firstHit = true;
+                    // check if switch 
+                    switchActivator = hit.collider.gameObject.GetComponent<SwitchActivator>();
+                    if(switchActivator != null)
+                    {
+                        switchActivator.Activate(gameObject);
+                    }
                 }
             }
             else
             {
+                if (switchActivator != null)
+                {
+                    switchActivator.Desactivate();
+                }
                 target = null;
+                switchActivator = null;
                 firstHit = false;
                 line.SetPosition(1, ray.GetPoint(100));
             }
