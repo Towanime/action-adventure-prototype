@@ -8,6 +8,7 @@ public class Laser : MonoBehaviour
     public GameObject emissor;
     public float damage;
     public float damageRate = 1;
+    public float distance = 20;
     private DamageableEntity target;
     private SwitchActivator switchActivator;
     private SwitchActivator lastSwitchActivator;
@@ -15,35 +16,32 @@ public class Laser : MonoBehaviour
 
     // Use this for initialization
     void Start () {
-        line.enabled = false;
         StartCoroutine("FireLaser");
-        //FireLaser();
     }
 	
-	// Update is called once per frame
-	void Update () {
-
-        //StartCoroutine("FireLaser");
-    }
-
     private IEnumerator FireLaser()
     {
-        line.enabled = true;
         while (true)
         {
             Ray ray = new Ray(emissor.transform.position, emissor.transform.forward);
             RaycastHit hit;
 
             line.SetPosition(0, ray.origin);
-            if (Physics.Raycast(ray, out hit, 100))
+            if (Physics.Raycast(ray, out hit, distance))
             {
+                //Debug.Log("Hitting: " + hit.collider.name + " with damageable entity? " + (target != null));
                 line.SetPosition(1, hit.point);
                 target = hit.collider.gameObject.GetComponent<DamageableEntity>();
                 switchActivator = hit.collider.gameObject.GetComponent<SwitchActivator>();
-                if (!firstHit)
+                if (hit.collider.CompareTag("Player") && target != null && !firstHit)
                 {
                     DoDamage();
                     firstHit = true;
+                }
+                else
+                {
+                    // reset hit if it's not a damageable entity
+                    firstHit = false;
                 }
                 // check if switch 
                 //switchActivator = hit.collider.gameObject.GetComponent<SwitchActivator>();
@@ -71,7 +69,7 @@ public class Laser : MonoBehaviour
                 }
                 target = null;
                 firstHit = false;
-                line.SetPosition(1, ray.GetPoint(100));
+                line.SetPosition(1, ray.GetPoint(distance));
             }
             yield return null;
         }

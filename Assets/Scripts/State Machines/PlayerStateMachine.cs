@@ -14,6 +14,11 @@ public class PlayerStateMachine : MonoBehaviour {
     public CameraController cameraController;
     public Disk disk;
     public Sword sword;
+    public Collider swordCollider;
+    public Animator animator;
+    // this should not be here but in a rush!
+    public float attackDuration;
+    private float currentDuration;
 
     void Awake()
     {
@@ -31,9 +36,14 @@ public class PlayerStateMachine : MonoBehaviour {
 
     void Idle_Update()
     {
-        if ((playerInput.attack || playerInput.disk) && manipulationComponent.InSight())
+        bool inSight = manipulationComponent.InSight();
+        if ((playerInput.attack || playerInput.disk) && inSight)
         {
             fsm.ChangeState(PlayerStates.ManipulationMode);
+        }
+        if (playerInput.attack && !inSight)
+        {
+            fsm.ChangeState(PlayerStates.Attack);
         }
         /*if (playerInput.disk && disk.CurrentState == DiskStates.Default)
         {
@@ -48,12 +58,24 @@ public class PlayerStateMachine : MonoBehaviour {
     void Attack_Enter()
     {
         // enable sword trigger?
-        //cameraController.ActivateAimingMode();
+        swordCollider.enabled = true;
+        playerMovement.Disabled = true;
+        currentDuration = 0;
+        animator.SetTrigger("Swing A");
+    }
+
+    void Attack_Update()
+    {
+        currentDuration += Time.deltaTime;
+        if (currentDuration >= attackDuration)
+        {
+            fsm.ChangeState(PlayerStates.Idle);
+        }
     }
 
     void Attack_Exit()
     {
-
+        swordCollider.enabled = false;
     }
 
     void DiskThrow_Enter()

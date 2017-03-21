@@ -8,6 +8,7 @@ public class DamageableEntity : MonoBehaviour
     public float life;
     public GameObject checkpoint;
     public bool destroyOnDeath;
+    public BaseActivator onDeathActivator;
     protected float currentLife;
 
     void Start()
@@ -22,6 +23,7 @@ public class DamageableEntity : MonoBehaviour
         ModifyCurrentLife(damage);
         if (currentLife <= 0)
         {
+            //Debug.Log("Death for: " + gameObject.name);
             Invoke("OnDeath", delayDeath);
         }
         return true;
@@ -42,6 +44,10 @@ public class DamageableEntity : MonoBehaviour
         if (destroyOnDeath)
         {
             Destroy(gameObject);
+        }
+        if (onDeathActivator)
+        {
+            onDeathActivator.Activate(gameObject);
         }
     }
 

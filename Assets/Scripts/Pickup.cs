@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+    bool triggered;
 
     /**
      * List to hold activators to call when this switch is "activated".
@@ -12,10 +13,13 @@ public class Pickup : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        foreach (BaseActivator activator in activators)
+        if (!triggered)
         {
-            activator.Activate(gameObject);
+            foreach (BaseActivator activator in activators)
+            {
+                activator.Activate(gameObject);
+            }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }

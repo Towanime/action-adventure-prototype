@@ -11,7 +11,7 @@ public class CounterActivator : BaseActivator {
     public override void Activate(GameObject trigger)
     {
         currentActivations = Mathf.Clamp(currentActivations + 1, 0, requiredActivations);
-        Debug.Log(gameObject.name + " Activation - " + currentActivations);
+        //Debug.Log(gameObject.name + " Activation - " + currentActivations);
         if (currentActivations >= requiredActivations)
         {
             activator.Activate(gameObject);
@@ -21,7 +21,7 @@ public class CounterActivator : BaseActivator {
     public override void Desactivate()
     {
         currentActivations = Mathf.Clamp(currentActivations - 1, 0, requiredActivations);
-        Debug.Log(gameObject.name + " Desactivation - " + currentActivations);
+        //Debug.Log(gameObject.name + " Desactivation - " + currentActivations);
         if (currentActivations < requiredActivations)
         {
             activator.Desactivate();
