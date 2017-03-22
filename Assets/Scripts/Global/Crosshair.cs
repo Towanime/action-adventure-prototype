@@ -32,7 +32,7 @@ public class Crosshair : MonoBehaviour
             activeTexture = crosshairTexture;
         }*/
         activeTexture = crosshairTexture;
-        Rect position = new Rect((Screen.width - activeTexture.width / 2) / 2, (Screen.height - activeTexture.height / 2) / 2, activeTexture.width / 2, activeTexture.height / 2);
+        Rect position = new Rect((Screen.width - activeTexture.width) / 2, (Screen.height - activeTexture.height) / 2, activeTexture.width, activeTexture.height);
         GUI.DrawTexture(position, activeTexture);
     }
 }
